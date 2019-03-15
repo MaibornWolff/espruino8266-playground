@@ -1,0 +1,35 @@
+{
+  "name": "espruino8266-playground",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "erase": "esptool.py --port /dev/tty.SLAB_USBtoUART erase_flash",
+    "flash": "esptool.py --port /dev/tty.SLAB_USBtoUART --baud 115200 write_flash --verify --flash_freq 80m --flash_mode dio --flash_size 4MB 0x00000 firmware/espruino_2v01_esp8266_4mb_combined_4096.bin",
+    "reset": "npm run erase && npm run flash",
+    "reupload": "npm run reset && npm run upload",
+    "build": "rollup -c",
+    "watch": "npm run build -- --watch",
+    "upload": "npm run build && espruino -p /dev/tty.SLAB_USBtoUART -b 115200 --board boards/ESP8266_4MB.json -e 'save()' dist/index.js",
+    "screen": "screen /dev/cu.SLAB_USBtoUART 115200"
+  },
+  "author": "Sven Flickinger <sven.flickinger@maibornwolff.de>",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/polyfill": "^7.2.5",
+    "es6-promisify": "^6.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "espruino": "^0.1.23",
+    "rollup": "^1.4.1",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.2.1",
+    "rollup-plugin-html": "^0.2.1",
+    "rollup-plugin-multi-entry": "^2.1.0",
+    "rollup-plugin-node-resolve": "^4.0.1",
+    "rollup-plugin-string": "^3.0.0",
+    "rollup-plugin-terser": "^4.0.4"
+  }
+}

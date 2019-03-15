@@ -1,0 +1,141 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- https://getmdl.io/ -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="main.css">
+    <title>ESPruino8266 - Web-UI</title>
+  </head>
+
+  <body>
+    <!-- Simple header with scrollable tabs. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">Title</span>
+        </div>
+        <!-- Tabs -->
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+          <a href="#tab-connection" class="mdl-layout__tab is-active">Connection</a>
+          <a href="#tab-sliders" class="mdl-layout__tab">Sliders</a>
+          <a href="#tab-voice" class="mdl-layout__tab">Voice</a>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Title</span>
+      </div>
+      <main class="mdl-layout__content">
+
+        <!-- TAB: CONNECTION -->
+        <section class="mdl-layout__tab-panel is-active" id="tab-connection">
+          <div class="page-content">
+            <div class="mdl-grid">
+
+              <div class="
+                mdl-cell
+                mdl-cell--4-col
+                mdl-cell--3-offset-desktop
+                mdl-cell--middle
+              ">
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input id="server" class="mdl-textfield__input" type="text">
+                  <label class="mdl-textfield__label" for="server">Websocket-URL</label>
+                </div>
+              </div>
+
+              <div class="
+                mdl-cell
+                mdl-cell--2-col
+                mdl-cell--4-col-phone
+                mdl-cell--middle
+              ">
+                <button
+                  id="connect"
+                  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                  style="width: 100%;"
+                >
+                  <i class="material-icons">flash_on</i> Connect
+                </button>
+                <span id="connection-state"></span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB: SLIDERS -->
+        <section class="mdl-layout__tab-panel" id="tab-sliders">
+          <div class="page-content">
+
+            <div class="mdl-grid">
+              <div class="mdl-cell mdl-cell--12-col">
+                <div id="speech-msg"></div>
+              </div>
+            </div>
+
+            <div class="mdl-grid">
+              <div class="mdl-cell mdl-cell--6-col mdl-cell--3-offset">
+                <p>
+                  <label for="red-slider">Red:</label>
+                  <input id="red-slider" class="mdl-slider mdl-js-slider" type="range" min="0" max="255" value="0" tabindex="0">
+                </p>
+
+                <p>
+                  <label for="green-slider">Green:</label>
+                  <input id="green-slider" class="mdl-slider mdl-js-slider" type="range" min="0" max="255" value="0" tabindex="0">
+                </p>
+
+                <p>
+                  <label for="blue-slider">Blue:</label>
+                  <input id="blue-slider" class="mdl-slider mdl-js-slider" type="range" min="0" max="255" value="0" tabindex="0">
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- TAB: VOICE -->
+        <section class="mdl-layout__tab-panel" id="tab-voice">
+          <div class="page-content">
+            <div class="mdl-grid">
+              <div class="mdl-cell mdl-cell--12-col">
+                <button
+                  id="record"
+                  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                >
+                  <i class="material-icons left">mic</i> Talk
+                </button>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div id="debug-container" class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col">
+            <p>
+              DEBUG:
+            </p>
+            <pre id="debug"></pre>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
+      <div id="snackbar-text" class="mdl-snackbar__text"></div>
+      <button class="mdl-snackbar__action" type="button"></button>
+    </div>
+
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script type="module" src="/entry.js"></script>
+
+  </body>
+</html>

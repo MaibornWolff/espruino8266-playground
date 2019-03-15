@@ -1,0 +1,12 @@
+#debug-container {
+  background: lightgrey;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20vh;
+}
+
+.mdl-textfield {
+  width: 100%;
+}
