@@ -12,6 +12,7 @@ module.exports = {
     format: 'cjs',
     name: 'main'
   },
+  external: [ 'Wifi', 'ws' ],
   plugins: [
     string({
       include: 'src/www/**/*.js',
