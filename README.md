@@ -2,16 +2,44 @@
 
 ## Prerequisites
 
-* Install Node.JS v11
-* Install Python
-* Install the [Espruino IDE](https://chrome.google.com/webstore/detail/espruino-web-ide/bleoifhkdalbjfbobjackfdifdneehpo)
-* Install the [micro controller driver](https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers)
-* Clone the [repository](https://github.com/MaibornWolff/espruino8266-playground)
+* Installed Node.JS v11
+* Installed Python
+* Installed [Micro controller driver](https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers)
+* (optional) [Espruino IDE](https://chrome.google.com/webstore/detail/espruino-web-ide/bleoifhkdalbjfbobjackfdifdneehpo)
+* Cloned [repository](https://github.com/MaibornWolff/espruino8266-playground)
+* esptool (can be installed via python's pip)
 
-* Install esptool via pip: `pip install esptool`
+### Installation on macOS
+
+Having [brew](https://brew.sh/) installed:
+
+```bash
+# Note: python and git should be pre-installed on macOS
+
+brew install n
+n latest
+
+pip install esptool
+```
 
 
-## Flashing hardware
+### Installation on Windows
+
+Having [chocolatey](https://chocolatey.org/) installed:
+
+```bash
+choco install git
+choco install python2
+choco install nodejs
+
+pip install esptool
+
+npm install --global --production windows-build-tools
+npm config set msvs_version 2015 --global
+```
+
+
+## Flashing the hardware
 
 ```bash
 cd device
@@ -21,7 +49,7 @@ npm run espruino:reset
 ```
 
 
-## (Optional) Connecting the Espruino IDE
+## (optional) Connecting the Espruino IDE
 
 * Settings -> Communications -> Baud rate: 115200
 * Connect to `/dev/cu.SLAB_USBtoUART` or `COM#`

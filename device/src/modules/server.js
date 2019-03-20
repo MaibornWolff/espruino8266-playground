@@ -3,12 +3,12 @@ import WebSocket from 'ws';
 import { blink } from './led';
 import { setColor } from './rgb-led';
 
-let wss;
+const connections = [];
 
 export function startWebServer() {
   const server = WebSocket.createServer(onPageRequest)
   server.listen(80);
-  server.on('websocket', initWsServer);
+  server.on('websocket', initSocket);
 }
 
 function onPageRequest(req, res) {
@@ -16,23 +16,25 @@ function onPageRequest(req, res) {
   res.end('404: Page ' + parsedUrl.path + ' not found.');
 }
 
-function initWsServer(_wss) {
-  wss = _wss;
-  wss.on('message', onWsRequest);
-}
+function initSocket(newConnetion) {
+  connections.push(newConnetion);
 
-function onWsRequest(payload) {
-  blink();
-  console.log(`[WS] ${payload}`);
+  newConnetion.on('message', function onWsRequest(payload) {
+    blink();
+    console.log(`[WS] ${payload}`);
 
-  payload = JSON.parse(payload);
-  switch (payload.command) {
-    case 'setColor':
-      setColor(payload.data.red, payload.data.green, payload.data.blue);
-      wss.send(JSON.stringify({ event: 'colorUpdated', data: payload.data }))
-      break;
+    payload = JSON.parse(payload);
+    switch (payload.command) {
+      case 'setColor':
+        setColor(payload.data.red, payload.data.green, payload.data.blue);
 
-    default:
-      console.log(`Unknown command: ${payload.command}`)
-  }
+        for (let connection of connections) {
+          connection.send(JSON.stringify({ event: 'colorUpdated', data: payload.data }))
+        }
+        break;
+
+      default:
+        console.log(`Unknown command: ${payload.command}`)
+    }
+  });
 }
