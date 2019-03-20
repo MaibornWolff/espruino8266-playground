@@ -4,14 +4,18 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "erase": "esptool.py --port /dev/tty.SLAB_USBtoUART erase_flash",
-    "flash": "esptool.py --port /dev/tty.SLAB_USBtoUART --baud 115200 write_flash --verify --flash_freq 80m --flash_mode dio --flash_size 4MB 0x00000 firmware/espruino_2v01_esp8266_4mb_combined_4096.bin",
-    "reset": "npm run erase && npm run flash",
-    "reupload": "npm run reset && npm run upload",
-    "build": "rollup -c",
-    "watch": "npm run build -- --watch",
-    "upload": "npm run build && espruino -p /dev/tty.SLAB_USBtoUART -b 115200 --board boards/ESP8266_4MB.json -e 'save()' dist/index.js",
-    "screen": "screen /dev/cu.SLAB_USBtoUART 115200"
+    "device:erase": "esptool.py --port /dev/tty.SLAB_USBtoUART erase_flash",
+    "device:flash": "esptool.py --port /dev/tty.SLAB_USBtoUART --baud 115200 write_flash --verify --flash_freq 80m --flash_mode dio --flash_size 4MB 0x00000 firmware/espruino_2v01_esp8266_4mb_combined_4096.bin",
+    "device:reset": "npm run device:erase && npm run device:flash",
+    "build": "rollup -c --environment entry:main",
+    "build:watch": "npm run build -- --watch",
+    "build:minimal": "rollup -c --environment entry:minimal",
+    "espruino:ports": "node scripts/espruino-cmd.js --list",
+    "espruino:reboot": "node scripts/espruino-cmd.js -e 'E.reboot();'",
+    "espruino:clear": "node scripts/espruino-cmd.js -e 'reset(); save();'",
+    "espruino:upload": "npm run build && node scripts/espruino-cmd.js -e \"save();\" 'dist/index.js'",
+    "espruino:reset": "npm run build:minimal && npm run espruino:clear && npm run espruino:reboot && npm run espruino:console",
+    "espruino:console": "node scripts/espruino-cmd.js -w 'dist/index.js'"
   },
   "author": "Sven Flickinger <sven.flickinger@maibornwolff.de>",
   "license": "ISC",
@@ -30,6 +34,10 @@
     "rollup-plugin-multi-entry": "^2.1.0",
     "rollup-plugin-node-resolve": "^4.0.1",
     "rollup-plugin-string": "^3.0.0",
-    "rollup-plugin-terser": "^4.0.4"
+    "rollup-plugin-terser": "^4.0.4",
+    "xpc-connection": "sandeepmistry/node-xpc-connection#pull/26/head"
+  },
+  "resolutions": {
+    "xpc-connection": "sandeepmistry/node-xpc-connection#pull/26/head"
   }
 }

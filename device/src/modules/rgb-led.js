@@ -4,10 +4,6 @@ const LEDS = {
   BLUE: NodeMCU.D2,
 }
 
-pinMode(LEDS.RED, 'output');
-pinMode(LEDS.GREEN, 'output');
-pinMode(LEDS.BLUE, 'output');
-
 export function setColor(red, green, blue) {
   console.log(`setColor`, red, green, blue);
 
@@ -20,7 +16,6 @@ export function setColor(red, green, blue) {
   blue = Math.floor(blue / 255 * 100) / 100;;
   blue = Math.max(0, Math.min(1, blue)) || 0;
 
-  console.log(`=>`, red, green, blue);
   analogWrite(LEDS.RED, red);
   analogWrite(LEDS.GREEN, green);
   analogWrite(LEDS.BLUE, blue)

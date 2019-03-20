@@ -6,7 +6,7 @@ import { string } from 'rollup-plugin-string';
 import { terser } from 'rollup-plugin-terser';
 
 module.exports = {
-  input: 'src/index.js',
+  input: `src/${process.env.entry}.js`,
   output: {
     file: 'dist/index.js',
     format: 'cjs',
