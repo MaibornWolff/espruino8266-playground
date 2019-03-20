@@ -4,8 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "device:erase": "esptool.py --port /dev/tty.SLAB_USBtoUART erase_flash",
-    "device:flash": "esptool.py --port /dev/tty.SLAB_USBtoUART --baud 115200 write_flash --verify --flash_freq 80m --flash_mode dio --flash_size 4MB 0x00000 firmware/espruino_2v01_esp8266_4mb_combined_4096.bin",
+    "device:erase": "node scripts/esptool-cmd.js erase_flash",
+    "device:flash": "node scripts/esptool-cmd.js --baud 115200 write_flash --verify --flash_freq 80m --flash_mode dio --flash_size 4MB 0x00000 firmware/espruino_2v01_esp8266_4mb_combined_4096.bin",
     "device:reset": "npm run device:erase && npm run device:flash",
     "build": "rollup -c --environment entry:main",
     "build:watch": "npm run build -- --watch",
