@@ -15,6 +15,8 @@ Having [brew](https://brew.sh/) installed:
 
 ```bash
 # Note: python and git should be pre-installed on macOS
+# If not:
+brew install python
 
 brew install n
 n latest
